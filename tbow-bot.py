@@ -1,4 +1,6 @@
 from requests import post, get
+
+import secret
 from secret import WEBHOOK_URL
 from json import load as load_json
 
@@ -7,7 +9,7 @@ if __name__ == "__main__":
     cox_kc = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=Crotch%20Flame').content.decode()
     cox_kc = int(cox_kc.replace('\n', ',').split(',')[113])
 
-    with open('guesses.json', 'r') as _:
+    with open(secret.GUESSES_PATH + './guesses.json', 'r') as _:
         guesses = load_json(_)
 
     distances = []
