@@ -1,13 +1,25 @@
 from requests import post, get
-
+from time import sleep
 import secret
 from secret import WEBHOOK_URL
 from json import load as load_json
 
 if __name__ == "__main__":
 
-    cox_kc = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=Crotch%20Flame').content.decode()
-    cox_kc = int(cox_kc.replace('\n', ',').split(',')[113])
+    num_attempts = 0
+    while True:
+        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=Crotch%20Flame')
+        num_attempts += 1
+        if response.status_code == 200:
+            break
+        if num_attempts > 20:
+            print('OSRS hiscores api failed after more than 20 tries, aborting.')
+            exit(1)
+        print('There was an issue with the osrs hiscores API. Retrying in 2 minutes')
+        sleep(120)
+
+    response_content_decoded = response.content.decode()
+    cox_kc = int(response_content_decoded.replace('\n', ',').split(',')[113])
 
     with open(secret.GUESSES_PATH + 'guesses.json', 'r') as _:
         guesses = load_json(_)
