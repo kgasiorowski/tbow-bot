@@ -18,8 +18,9 @@ if __name__ == "__main__":
         print('There was an issue with the osrs hiscores API. Retrying in 2 minutes')
         sleep(120)
 
-    response_content_decoded = response.content.decode()
-    cox_kc = int(response_content_decoded.replace('\n', ',').split(',')[113])
+    hiscore_values = response.content.decode().replace('\n', ',').split(',')
+    cox_kc = int(hiscore_values[113])
+    rank = int(hiscore_values[112])
 
     with open(secret.GUESSES_PATH + 'guesses.json', 'r') as _:
         guesses = load_json(_)
@@ -34,7 +35,7 @@ if __name__ == "__main__":
 
     topGuesses = sorted(distances, key=lambda d:d[2])[:3]
 
-    content = f'Crotch\'s cox kc is: {cox_kc}.\n\n'
+    content = f'Crotch\'s cox kc is: {cox_kc} (ranked {rank}).\n\n'
 
     content += 'The following players have been eliminated:\n'
     for player in eliminatedPlayers:
