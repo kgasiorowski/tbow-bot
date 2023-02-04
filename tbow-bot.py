@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     num_attempts = 0
     while True:
-        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=Crotch%20Flame')
+        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=UIM%20Crotch')
         num_attempts += 1
         if response.status_code == 200:
             break
