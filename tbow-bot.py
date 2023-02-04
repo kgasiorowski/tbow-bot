@@ -10,7 +10,7 @@ if __name__ == "__main__":
     while True:
         response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=Crotch%20Flame')
         num_attempts += 1
-        if response.status_code != 200:
+        if response.status_code == 200:
             break
         if num_attempts > 20:
             print('OSRS hiscores api failed after more than 20 tries, aborting.')
