@@ -36,6 +36,7 @@ def main():
         else:
             eliminatedPlayers.append(guess)
 
+    eliminatedPlayers = sorted(eliminatedPlayers, key=lambda a:a[1])
     topGuesses = sorted(distances, key=lambda d:d[2])[:3]
 
     content = f'Crotch\'s cox kc is: {cox_kc} (ranked {rank}).\n\n'
