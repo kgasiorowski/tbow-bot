@@ -4,8 +4,10 @@ import secret
 from secret import WEBHOOK_URL
 from json import load as load_json
 
-if __name__ == "__main__":
+def send_message(content: str):
+    post(WEBHOOK_URL, {"content": content})
 
+def main():
     num_attempts = 0
     while True:
         response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=UIM%20Crotch')
@@ -14,6 +16,7 @@ if __name__ == "__main__":
             break
         if num_attempts > 20:
             print('OSRS hiscores api failed after more than 20 tries, aborting.')
+            send_message('I tried to get the hiscores data a lot of times but I kept failing. Maybe the hiscores are down?')
             exit(1)
         print('There was an issue with the osrs hiscores API. Retrying in 2 minutes')
         sleep(120)
@@ -49,4 +52,12 @@ if __name__ == "__main__":
 
     content += '\nSee you tomorrow.'
 
-    post(WEBHOOK_URL, {'content':content})
+    send_message(content)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(e)
+        send_message("Uh oh. Looks like I crashed. You suck at programming, look at my code again idiot.")
