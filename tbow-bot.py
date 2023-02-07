@@ -4,7 +4,7 @@ import secret
 from secret import WEBHOOK_URL
 from json import load as load_json
 
-def send_message(content: str):
+def send_discord_message(content: str):
     post(WEBHOOK_URL, {"content": content})
 
 def main():
@@ -16,7 +16,7 @@ def main():
             break
         if num_attempts > 20:
             print('OSRS hiscores api failed after more than 20 tries, aborting.')
-            send_message('I tried to get the hiscores data a lot of times but I kept failing. Maybe the hiscores are down?')
+            send_discord_message('I tried to get the hiscores data a lot of times but I kept failing. Maybe the hiscores are down?')
             exit(1)
         print('There was an issue with the osrs hiscores API. Retrying in 2 minutes')
         sleep(120)
@@ -52,7 +52,7 @@ def main():
 
     content += '\nSee you tomorrow.'
 
-    send_message(content)
+    send_discord_message(content)
 
 
 if __name__ == "__main__":
@@ -60,4 +60,4 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(e)
-        send_message("Uh oh. Looks like I crashed. You suck at programming, look at my code again idiot.")
+        send_discord_message("Uh oh. Looks like I crashed. You suck at programming, look at my code again idiot.")
