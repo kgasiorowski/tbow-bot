@@ -43,9 +43,9 @@ def main():
 
     content += 'The following players have been eliminated:\n'
     for player in eliminatedPlayers:
-        content += f'{player[0]} ({player[1]})\n'
+        content += f'- {player[0]} ({player[1]})\n'
 
-    content += '\nThe closest guesses are:\n'
+    content += '\nThe next closest guesses are:\n'
     counter = 1
     for player in topGuesses:
         content += f'{counter}. {player[0]} ({player[1]})\n'
