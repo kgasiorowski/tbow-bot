@@ -2,4 +2,4 @@
 venv/
 secret.py
 __pycache__/
-previous_kc
+previous_kc.json

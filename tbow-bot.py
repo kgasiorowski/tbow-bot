@@ -9,7 +9,7 @@ def send_discord_message(content: str):
     post(WEBHOOK_URL, {"content": content})
 
 def main():
-    with open('previous_kc', 'r') as _:
+    with open('previous_kc.json', 'r') as _:
         previous_kc = load_json(_)
 
     num_attempts = 0
@@ -32,10 +32,10 @@ def main():
     if cox_kc == previous_kc:
         return
     else:
-        with open('previous_kc', 'w') as _:
+        with open(secret.PROJECT_PATH + 'previous_kc.json', 'w') as _:
             dump_json(cox_kc, _)
 
-    with open(secret.GUESSES_PATH + 'guesses.json', 'r') as _:
+    with open(secret.PROJECT_PATH + 'guesses.json', 'r') as _:
         guesses = load_json(_)
 
     distances = []
