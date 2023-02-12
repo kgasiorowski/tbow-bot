@@ -3,11 +3,15 @@ from time import sleep
 import secret
 from secret import WEBHOOK_URL
 from json import load as load_json
+from json import dump as dump_json
 
 def send_discord_message(content: str):
     post(WEBHOOK_URL, {"content": content})
 
 def main():
+    with open('previous_kc', 'r') as _:
+        previous_kc = load_json(_)
+
     num_attempts = 0
     while True:
         response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=UIM%20Crotch')
@@ -24,6 +28,12 @@ def main():
     hiscore_values = response.content.decode().replace('\n', ',').split(',')
     cox_kc = int(hiscore_values[113])
     rank = int(hiscore_values[112])
+
+    if cox_kc == previous_kc:
+        return
+    else:
+        with open('previous_kc', 'w') as _:
+            dump_json(cox_kc, _)
 
     with open(secret.GUESSES_PATH + 'guesses.json', 'r') as _:
         guesses = load_json(_)
