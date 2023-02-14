@@ -9,7 +9,7 @@ def send_discord_message(content: str):
     post(WEBHOOK_URL, {"content": content})
 
 def main():
-    with open('previous_kc.json', 'r') as _:
+    with open(secret.PROJECT_PATH + 'previous_kc.json', 'r') as _:
         previous_kc = load_json(_)
 
     num_attempts = 0
