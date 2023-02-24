@@ -41,7 +41,7 @@ def main():
     distances = []
     eliminatedPlayers = []
     for guess in guesses.items():
-        if guess[1] >= cox_kc:
+        if guess[1] > cox_kc:
             distances.append((guess[0], guess[1], abs(guess[1]-cox_kc)))
         else:
             eliminatedPlayers.append(guess)
