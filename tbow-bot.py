@@ -14,7 +14,7 @@ def main():
 
     num_attempts = 0
     while True:
-        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws?player=UIM%20Crotch')
+        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws', {'player': 'Crotch Flame'})
         num_attempts += 1
         if response.status_code == 200:
             break
