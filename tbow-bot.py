@@ -26,8 +26,11 @@ def main():
     cox_kc = int(hiscore_values[113])
     rank = int(hiscore_values[112])
 
-    with open(config.PROJECT_PATH + 'previous_kc.json', 'r') as _:
-        previous_kc = load_json(_)
+    try:
+        with open(config.PROJECT_PATH + 'previous_kc.json', 'r') as _:
+            previous_kc = load_json(_)
+    except FileNotFoundError:
+        previous_kc = 0
 
     if cox_kc == previous_kc:
         return
