@@ -1,5 +1,4 @@
 .idea/
 venv/
-secret.py
 __pycache__/
 previous_kc.json

@@ -1,7 +1,7 @@
 from requests import post, get
 from time import sleep
-import secret
-from secret import WEBHOOK_URL
+import config
+from config import WEBHOOK_URL
 from json import load as load_json
 from json import dump as dump_json
 
@@ -9,12 +9,9 @@ def send_discord_message(content: str):
     post(WEBHOOK_URL, {"content": content})
 
 def main():
-    with open(secret.PROJECT_PATH + 'previous_kc.json', 'r') as _:
-        previous_kc = load_json(_)
-
     num_attempts = 0
     while True:
-        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws', {'player': 'Crotch Flame'})
+        response = get('https://secure.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws', {'player': config.USERNAME})
         num_attempts += 1
         if response.status_code == 200:
             break
@@ -29,13 +26,16 @@ def main():
     cox_kc = int(hiscore_values[113])
     rank = int(hiscore_values[112])
 
+    with open(config.PROJECT_PATH + 'previous_kc.json', 'r') as _:
+        previous_kc = load_json(_)
+
     if cox_kc == previous_kc:
         return
     else:
-        with open(secret.PROJECT_PATH + 'previous_kc.json', 'w') as _:
+        with open(config.PROJECT_PATH + 'previous_kc.json', 'w') as _:
             dump_json(cox_kc, _)
 
-    with open(secret.PROJECT_PATH + 'guesses.json', 'r') as _:
+    with open(config.PROJECT_PATH + 'guesses.json', 'r') as _:
         guesses = load_json(_)
 
     distances = []
