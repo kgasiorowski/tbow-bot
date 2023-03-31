@@ -2,3 +2,4 @@
 venv/
 __pycache__/
 previous_kc.json
+previous_collection_log.json
