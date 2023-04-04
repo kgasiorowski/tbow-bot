@@ -74,7 +74,7 @@ def main():
         excluded_uniques = ['Dark relic', 'Torn Prayer Scroll']
         content += 'He obtained the following uniques since I was last run:\n'
         for unique in cox_loot.keys():
-            if unique in excluded_uniques:
+            if unique.lower() in [unique.lower() for unique in excluded_uniques]:
                 continue
 
             if cox_loot[unique] != previous_coll_log[unique]:
