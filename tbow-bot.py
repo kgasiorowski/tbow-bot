@@ -36,8 +36,8 @@ def main():
         sleep(120)
 
     hiscore_values = response.content.decode().replace('\n', ',').split(',')
-    cox_kc = int(hiscore_values[113])
-    rank = int(hiscore_values[112])
+    cox_kc = int(hiscore_values[117])
+    rank = int(hiscore_values[116])
 
     try:
         with open(config.PROJECT_PATH + 'previous_kc.json', 'r') as _:
@@ -61,7 +61,7 @@ def main():
 
     results = get(f'https://api.collectionlog.net/collectionlog/user/{config.USERNAME}').json()
     cox = results['collectionLog']['tabs']['Raids']['Chambers of Xeric']['items']
-    cox_loot = {item['name']: item['quantity'] for item in cox}
+    cox_loot = {item['name']: item['quantity'] for item in cox if item['name'] in purple_item_names}
 
     if not previous_coll_log:
         with open(config.PROJECT_PATH + 'previous_collection_log.json', 'w') as _:
@@ -71,12 +71,9 @@ def main():
     if cox_loot != previous_coll_log:
         with open(config.PROJECT_PATH + 'previous_collection_log.json', 'w') as _:
             dump_json(cox_loot, _)
-        excluded_uniques = ['Dark relic', 'Torn Prayer Scroll']
+
         content += 'He obtained the following uniques since I was last run:\n'
         for unique in cox_loot.keys():
-            if unique.lower() in [unique.lower() for unique in excluded_uniques]:
-                continue
-
             if cox_loot[unique] != previous_coll_log[unique]:
                 content += f'+{cox_loot[unique] - previous_coll_log[unique]} {unique} - totalling {cox_loot[unique]}\n'
 
