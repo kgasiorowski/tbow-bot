@@ -74,6 +74,10 @@ def main():
 
         content += 'He obtained the following uniques since I was last run:\n'
         for unique in cox_loot.keys():
+            if cox_loot[unique] <= 0:
+                send_discord_message("Looks like the collection log plugin is having trouble, try re-uploading your clog and then run me again.")
+                return
+
             if cox_loot[unique] != previous_coll_log[unique]:
                 content += f'+{cox_loot[unique] - previous_coll_log[unique]} {unique} - totalling {cox_loot[unique]}\n'
 
