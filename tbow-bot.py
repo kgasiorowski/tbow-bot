@@ -47,9 +47,6 @@ def main():
 
     if cox_kc == previous_kc:
         return
-    else:
-        with open(config.PROJECT_PATH + 'previous_kc.json', 'w') as _:
-            dump_json(cox_kc, _)
 
     content = f'Crotch\'s cox kc is: {cox_kc} (+{cox_kc-previous_kc}) (ranked {rank}).\n\n'
 
@@ -69,12 +66,9 @@ def main():
         previous_coll_log = cox_loot
 
     if cox_loot != previous_coll_log:
-        with open(config.PROJECT_PATH + 'previous_collection_log.json', 'w') as _:
-            dump_json(cox_loot, _)
-
         content += 'He obtained the following uniques since I was last run:\n'
         for unique in cox_loot.keys():
-            if cox_loot[unique] <= 0:
+            if unique != 'Twisted bow' and cox_loot[unique] <= 0:
                 send_discord_message("Looks like the collection log plugin is having trouble, try re-uploading your clog and then run me again.")
                 return
 
@@ -110,6 +104,12 @@ def main():
         counter += 1
 
     content += '\nSee you tomorrow.'
+
+    with open(config.PROJECT_PATH + 'previous_collection_log.json', 'w') as _:
+        dump_json(cox_loot, _)
+
+    with open(config.PROJECT_PATH + 'previous_kc.json', 'w') as _:
+        dump_json(cox_kc, _)
 
     send_discord_message(content)
 
