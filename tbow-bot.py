@@ -94,8 +94,10 @@ def main():
     topGuesses = sorted(distances, key=lambda d:d[2])[:3]
 
     content += 'The following players have been eliminated:\n'
+    counter = 0
     for player in eliminatedPlayers:
-        content += f'- {player[0]} ({player[1]})\n'
+        counter += 1
+        content += f'{counter}. {player[0]} ({player[1]})\n'
 
     content += '\nThe next closest guesses are:\n'
     counter = 1
