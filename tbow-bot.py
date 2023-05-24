@@ -36,8 +36,8 @@ def main():
         sleep(120)
 
     hiscore_values = response.content.decode().replace('\n', ',').split(',')
-    cox_kc = int(hiscore_values[117])
-    rank = int(hiscore_values[116])
+    cox_kc = int(hiscore_values[121])
+    rank = int(hiscore_values[120])
 
     try:
         with open(config.PROJECT_PATH + 'previous_kc.json', 'r') as _:
